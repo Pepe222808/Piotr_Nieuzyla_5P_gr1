@@ -1,0 +1,5 @@
+# Visual Studio temporary & cache files
+.vs/
+*.vsidx
+bin/
+obj/

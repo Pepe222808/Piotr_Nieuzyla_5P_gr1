@@ -35,5 +35,14 @@
 
             Assert.Equal(600m, gwarancja);
         }
+
+        [Fact]
+        public void BlednyKodRabatowy()
+        {
+            var koszyk = new KoszykSklepu();
+
+            Assert.Throws<ArgumentException>(() => koszyk.DodajZnizke("za darmo"));
+
+        }
     }
 }

@@ -16,9 +16,11 @@ namespace sklep_informatyczny
     public class KoszykSklepu
     {
         private readonly List<Produkt> _produkty = new();
+        private decimal _znizka = 0;
 
         public void DodajProdukt(string nazwa, decimal cena, int ilosc)
         {
+            //funkcja dodaje produkty do koszyka i sprawdza podana cene i ilosc 
             if (cena < 0)
             {
                 throw new ArgumentException("Cena nie moze byc ujemna");
@@ -31,8 +33,32 @@ namespace sklep_informatyczny
             _produkty.Add(new Produkt { Nazwa = nazwa, Cena = cena, Ilosc = ilosc });
         }
 
+        public void DodajZnizke(string kod)
+        {
+            //funckja sprawdza czy podany kod rabatowy jest poprawny i nalicza znizke
+            if (string.IsNullOrWhiteSpace(kod))
+            {
+                throw new ArgumentException("kod nie moze byc pusty");
+            }
+
+            switch (kod.Trim().ToUpper())
+            {
+                case "STUDENT":
+                    _znizka = 0.15m;
+                    break;
+                case "PROMO5":
+                    _znizka = 0.5m;
+                    break;
+                default:
+                    throw new ArgumentException("Bledny kod rabatowy");
+            }
+        }
+
         public decimal ObliczKoszt()
         {
+            //funkcja oblicza koszt wszystkich przedmiotow w koszyku, odlicza znizke jesli podany byl kod rabatowy i 
+            // jesli cena jest nizsza niz 200 zl dolicza dostawe
+            //zwraca calkowity koszt zamowienia
             decimal koszt = 0;
             decimal dostawa = 15m;
 
@@ -40,6 +66,9 @@ namespace sklep_informatyczny
             {
                 koszt += (produkt.Cena * produkt.Ilosc);
             }
+
+            koszt = koszt * (1 - _znizka);
+
 
             if (koszt > 0 && koszt < 200)
             {
@@ -51,6 +80,8 @@ namespace sklep_informatyczny
 
         public decimal ObliczGwarancje(decimal cena, int lata)
         {
+            // funkcja pobiera cene produktu i dlugosc trwania gwarancji i oblicza gwarancje jako 1/10 ceny * czas trwania
+            // zwraca cene gwarancji
             if (lata < 1 || lata > 5)
             {
                 throw new ArgumentOutOfRangeException(nameof(lata), "Gwarancja tylko w okresie od 1 do 5 lat");
@@ -58,6 +89,8 @@ namespace sklep_informatyczny
 
             return cena * 0.10m * lata;
         }
+
+        
 
 
     }

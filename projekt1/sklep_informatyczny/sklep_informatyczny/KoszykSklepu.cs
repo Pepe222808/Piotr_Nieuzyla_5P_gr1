@@ -30,5 +30,25 @@ namespace sklep_informatyczny
             
             _produkty.Add(new Produkt { Nazwa = nazwa, Cena = cena, Ilosc = ilosc });
         }
+
+        public decimal ObliczKoszt()
+        {
+            decimal koszt = 0;
+            decimal dostawa = 15;
+
+            foreach(var produkt in _produkty)
+            {
+                koszt += (produkt.Cena * produkt.Ilosc);
+            }
+
+            if (koszt > 0 && koszt < 200)
+            {
+                koszt += dostawa;
+            }
+
+            return koszt;
+        }
+
+
     }
 }

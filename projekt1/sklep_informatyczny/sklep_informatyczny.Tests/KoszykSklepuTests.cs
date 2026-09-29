@@ -14,5 +14,16 @@
 
             Assert.Equal(4500m, koszt);
         }
+
+        [Fact]
+        public void DodawanieKosztuDostawy()
+        {
+            var koszyk = new KoszykSklepu();
+            koszyk.DodajProdukt("myszka", 65.99m, 1);
+
+            decimal koszt = koszyk.ObliczKoszt();
+
+            Assert.Equal(80.99m, koszt);
+        }
     }
 }

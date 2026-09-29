@@ -34,7 +34,7 @@ namespace sklep_informatyczny
         public decimal ObliczKoszt()
         {
             decimal koszt = 0;
-            decimal dostawa = 15;
+            decimal dostawa = 15m;
 
             foreach(var produkt in _produkty)
             {
@@ -47,6 +47,16 @@ namespace sklep_informatyczny
             }
 
             return koszt;
+        }
+
+        public decimal ObliczGwarancje(decimal cena, int lata)
+        {
+            if (lata < 1 || lata > 5)
+            {
+                throw new ArgumentOutOfRangeException(nameof(lata), "Gwarancja tylko w okresie od 1 do 5 lat");
+            }
+
+            return cena * 0.10m * lata;
         }
 
 

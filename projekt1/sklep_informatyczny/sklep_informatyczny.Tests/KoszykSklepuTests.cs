@@ -25,5 +25,15 @@
 
             Assert.Equal(80.99m, koszt);
         }
+
+        [Fact]
+        public void ObliczanieGwarancji()
+        {
+            var koszyk = new KoszykSklepu();
+
+            decimal gwarancja = koszyk.ObliczGwarancje(2000m, 3);
+
+            Assert.Equal(600m, gwarancja);
+        }
     }
 }

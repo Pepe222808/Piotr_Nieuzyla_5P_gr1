@@ -29,5 +29,13 @@ namespace sklep_informatyczny
             return _magazyn[nazwa].Sztuki >= ilosc;
         }
 
+        public decimal PobierzCene(string nazwa)
+        {
+            if (!_magazyn.ContainsKey(nazwa))
+                throw new ArgumentException("Produkt nie istnieje w magazynie.");
+
+            return _magazyn[nazwa].Cena;
+        }
+
     }
 }

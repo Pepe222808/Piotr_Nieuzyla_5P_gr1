@@ -16,6 +16,18 @@ namespace sklep_informatyczny
             { "Klawiatura steelseries", (220m, 20) }
         };
 
-        
+        public bool SprawdzDostepnosc(string nazwa, int ilosc)
+        {
+            if (string.IsNullOrWhiteSpace(nazwa))
+                throw new ArgumentException("Nazwa produktu nie może być pusta.");
+            if (ilosc <= 0)
+                throw new ArgumentException("Ilość musi być większa od zera.");
+
+            if (!_magazyn.ContainsKey(nazwa))
+                return false;
+
+            return _magazyn[nazwa].Sztuki >= ilosc;
+        }
+
     }
 }

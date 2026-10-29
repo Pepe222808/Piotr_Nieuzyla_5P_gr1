@@ -28,5 +28,26 @@ namespace sklep_informatyczny.Tests
             Assert.Equal(1400m, koszyk.ObliczKoszt());
         }
 
+        // Test pozytywny 2: dodanie wielu produktow naraz
+        [Fact]
+        public void KoszykIMagazyn_WieleProduktow_PoprawnaIntegracja()
+        {
+            // Arrange
+            var magazyn = new MagazynSklepu();
+            var koszyk = new KoszykSklepu();
+
+            // Act (sprawdzenie dostepnosci i sumowanie ceny 2200 + (2 * 700) = 3600)
+            if (magazyn.SprawdzDostepnosc("Intel I7", 1))
+                koszyk.DodajProdukt("Intel I7", magazyn.PobierzCene("Intel I7"), 1);
+
+            if (magazyn.SprawdzDostepnosc("RAM 16gb", 2))
+                koszyk.DodajProdukt("RAM 16gb", magazyn.PobierzCene("RAM 16gb"), 2);
+
+            decimal kosztCalkowity = koszyk.ObliczKoszt(); 
+
+            // Assert
+            Assert.Equal(3600m, kosztCalkowity);
+        }
+
     }
 }

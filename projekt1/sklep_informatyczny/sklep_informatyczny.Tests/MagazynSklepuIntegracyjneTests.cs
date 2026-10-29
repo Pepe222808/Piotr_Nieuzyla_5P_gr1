@@ -49,5 +49,21 @@ namespace sklep_informatyczny.Tests
             Assert.Equal(3600m, kosztCalkowity);
         }
 
+        // Test pozytywny 3: sprawdzenie stanu dla wiekszej ilosci produktu niz w magazynie
+        [Fact]
+        public void KoszykIMagazyn_PrzekroczonaIlosc_OdrzucaZakup()
+        {
+            // Arrange
+            var magazyn = new MagazynSklepu();
+            string produkt = "Intel I7";
+            int ilosc = 5; // W magazynie są tylko 2 sztuki
+
+            // Act (sprawdza dostepnosc dla 5 inteli zwraca false)
+            bool dostepny = magazyn.SprawdzDostepnosc(produkt, ilosc);
+
+            // Assert
+            Assert.False(dostepny);
+        }
+
     }
 }

@@ -65,5 +65,17 @@ namespace sklep_informatyczny.Tests
             Assert.False(dostepny);
         }
 
+        // Test negatywny: proba weryfikacji zlej nazwy lub niepoprawnej ilosci - wyrzuca wyjatek
+        [Fact]
+        public void Magazyn_BlednaIloscLubNazwa_RzucaWyjatek()
+        {
+            // Arrange
+            var magazyn = new MagazynSklepu();
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => magazyn.SprawdzDostepnosc("", 1));
+            Assert.Throws<ArgumentException>(() => magazyn.SprawdzDostepnosc("RTX 3070", 0));
+        }
+
     }
 }
